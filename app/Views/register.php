@@ -1,23 +1,43 @@
-<h2>Kayıt Ol</h2>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Stay Fit | Kayıt</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
 
-<form method="post" action="/register">
-    <input type="text" name="first_name" placeholder="Ad" required><br><br>
-    <input type="text" name="last_name" placeholder="Soyad" required><br><br>
-    <input type="email" name="email" placeholder="Email" required><br><br>
-    <input type="password" name="password" placeholder="Şifre" required><br><br>
+<div class="container">
+    <div class="card" style="max-width: 500px; margin: auto;">
+        <h1>Stay Fit</h1>
+        <h2>Kayıt Ol</h2>
 
-    <select name="gender" required>
-        <option value="">Cinsiyet Seç</option>
-        <option value="male">Erkek</option>
-        <option value="female">Kadın</option>
-    </select><br><br>
+        <form method="post" action="/register">
 
-    <input type="number" name="age" placeholder="Yaş" required><br><br>
-    <input type="number" step="0.01" name="height" placeholder="Boy cm" required><br><br>
-    <input type="number" step="0.01" name="weight" placeholder="Kilo kg" required><br><br>
-    <input type="number" name="step_goal" placeholder="Günlük adım hedefi" value="10000"><br><br>
+            <input type="text" name="first_name" placeholder="Ad" required>
+            <input type="text" name="last_name" placeholder="Soyad" required>
 
-    <button type="submit">Kayıt Ol</button>
-</form>
+            <input type="email" name="email" placeholder="Email adresi" required>
+            <input type="password" name="password" placeholder="Şifre" required>
 
-<a href="/login">Zaten hesabım var</a>
+            <select name="gender" required>
+                <option value="">Cinsiyet Seç</option>
+                <option value="male">Erkek</option>
+                <option value="female">Kadın</option>
+            </select>
+
+            <input type="number" name="age" placeholder="Yaş" required>
+            <input type="number" step="0.01" name="height" placeholder="Boy (cm)" required>
+            <input type="number" step="0.01" name="weight" placeholder="Kilo (kg)" required>
+
+            <input type="number" name="step_goal" placeholder="Günlük adım hedefi" value="10000">
+
+            <button type="submit">Kayıt Ol</button>
+        </form>
+
+        <p>Zaten hesabın var mı? <a href="/login">Giriş yap</a></p>
+    </div>
+</div>
+
+</body>
+</html>

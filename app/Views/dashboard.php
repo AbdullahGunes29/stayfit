@@ -1,40 +1,70 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<h2>Stay Fit Panel</h2>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Stay Fit | Panel</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
 
-<p>Hoş geldin, <?= session()->get('user_name') ?></p>
+<!-- NAVBAR -->
+<div class="nav">
+    Hoş geldin, <?= session()->get('user_name') ?>
+    <a href="/record/list">Kayıtlar</a>
+    <a href="/logout">Çıkış</a>
+</div>
 
-<form method="post" action="/record/add" class="mt-4">
-    <input class="form-control mb-2" type="number" name="calories" placeholder="Kalori">
-    <input class="form-control mb-2" type="number" name="steps" placeholder="Adım">
-    <button class="btn btn-success">Kaydet</button>
-</form>
+<div class="container">
 
-<a href="/record/list">Kayıtları Gör</a>
+    <div class="card">
+        <h2>Günlük Veri Gir</h2>
 
-<a href="/logout">Çıkış Yap</a>
+        <form method="post" action="/record/add">
+            <input type="number" name="calories" placeholder="Kalori" required>
+            <input type="number" name="steps" placeholder="Adım" required>
 
-<?php
-$model = new \App\Models\RecordModel();
+            <button type="submit">Kaydet</button>
+        </form>
+    </div>
 
-$today = $model
-    ->where('user_id', session()->get('user_id'))
-    ->where('record_date', date('Y-m-d'))
-    ->first();
+    <br>
 
-if($today){
-    if($today['steps'] >= session()->get('step_goal')){
-        echo "<h3 style='color:green'>🔥 Hedefe ulaştın!</h3>";
-    } else {
-        echo "<h3 style='color:red'>⚠ Hedefe ulaşamadın</h3>";
-    }
-}
-?>
+    <!-- BUGÜN DURUM -->
+    <div class="card">
+        <h2>Bugünkü Durum</h2>
 
-<?php
-if($today){
-    echo "<p>Adım: ".$today['steps']."</p>";
-    echo "<p>Kalori: ".$today['burned_calories']."</p>";
-}
-?>
+        <?php
+        $model = new \App\Models\RecordModel();
 
-<a href="/record/list" class="btn btn-primary mt-3">📊 Grafik Gör</a>
+        $today = $model
+            ->where('user_id', session()->get('user_id'))
+            ->where('record_date', date('Y-m-d'))
+            ->first();
+
+        if($today):
+        ?>
+
+            <p>Kalori: <?= $today['burned_calories'] ?></p>
+            <p>Adım: <?= $today['steps'] ?></p>
+
+            <?php if($today['steps'] >= session()->get('step_goal')): ?>
+                <p class="success">🔥 Hedefe ulaştın!</p>
+            <?php else: ?>
+                <p class="warning">⚠ Hedefe ulaşamadın</p>
+            <?php endif; ?>
+
+        <?php else: ?>
+            <p>Bugün henüz veri girilmedi</p>
+        <?php endif; ?>
+
+    </div>
+
+    <br>
+
+    <!-- BUTON -->
+    <a href="/record/list" class="btn">📊 Tüm Kayıtları Gör</a>
+
+</div>
+
+</body>
+</html>

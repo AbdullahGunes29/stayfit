@@ -1,0 +1,93 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #222;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+h1, h2 {
+    color: #1f7a4d;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+button, .btn {
+    display: inline-block;
+    background: #1f7a4d;
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button:hover, .btn:hover {
+    background: #155c39;
+}
+
+.btn-secondary {
+    background: #2563eb;
+}
+
+.btn-danger {
+    background: #dc2626;
+}
+
+.nav {
+    background: #1f7a4d;
+    padding: 15px 40px;
+    color: white;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.table th {
+    background: #1f7a4d;
+    color: white;
+}
+
+.success {
+    color: green;
+    font-weight: bold;
+}
+
+.warning {
+    color: red;
+    font-weight: bold;
+}
