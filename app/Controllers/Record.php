@@ -24,12 +24,31 @@ class Record extends BaseController
 
     public function list()
     {
-        $model = new RecordModel();
-
-        $data['records'] = $model
-            ->where('user_id', session()->get('user_id'))
-            ->findAll();
-
-        return view('records', $data);
+        if (! session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+    
+        $model = new \App\Models\RecordModel();
+    
+        $userId = session()->get('user_id');
+        $filter = $this->request->getGet('filter');
+    
+        if ($filter == 'monthly') {
+            $records = $model
+                ->where('user_id', $userId)
+                ->where('record_date >=', date('Y-m-d', strtotime('-30 days')))
+                ->findAll();
+        } else {
+            // default weekly
+            $records = $model
+                ->where('user_id', $userId)
+                ->where('record_date >=', date('Y-m-d', strtotime('-7 days')))
+                ->findAll();
+        }
+    
+        return view('records', [
+            'records' => $records,
+            'filter'  => $filter ?? 'weekly'
+        ]);
     }
 }

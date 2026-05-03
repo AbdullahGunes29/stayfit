@@ -1,70 +1,57 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <title>Stay Fit | Panel</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
-</head>
-<body>
+<?= $this->extend('layouts/main') ?>
 
-<!-- NAVBAR -->
-<div class="nav">
-    Hoş geldin, <?= session()->get('user_name') ?>
-    <a href="/record/list">Kayıtlar</a>
-    <a href="/logout">Çıkış</a>
-</div>
+<?= $this->section('content') ?>
 
-<div class="container">
+<?php
+$todayCalories = $todayCalories ?? 0;
+$todaySteps    = $todaySteps ?? 0;
+$goal          = $goal ?? 10000;
 
-    <div class="card">
-        <h2>Günlük Veri Gir</h2>
+$percentage = 0;
+if ($goal > 0) {
+    $percentage = min(100, round(($todaySteps / $goal) * 100));
+}
+?>
 
-        <form method="post" action="/record/add">
-            <input type="number" name="calories" placeholder="Kalori" required>
-            <input type="number" name="steps" placeholder="Adım" required>
+<div class="panel-wrapper">
 
-            <button type="submit">Kaydet</button>
-        </form>
-    </div>
+    <h2>Hoş geldin, <?= session()->get('user_name') ?></h2>
 
-    <br>
+    <div class="dashboard-two-column">
 
-    <!-- BUGÜN DURUM -->
-    <div class="card">
-        <h2>Bugünkü Durum</h2>
+        <!-- SOL: FORM -->
+        <div class="card">
+            <h3>Bugünkü kalori ve adım sayını gir</h3>
 
-        <?php
-        $model = new \App\Models\RecordModel();
+            <form method="post" action="/record/add">
+                <input type="number" name="calories" placeholder="Kalori" required>
+                <input type="number" name="steps" placeholder="Adım sayısı" required>
 
-        $today = $model
-            ->where('user_id', session()->get('user_id'))
-            ->where('record_date', date('Y-m-d'))
-            ->first();
+                <button type="submit">Kaydet</button>
+            </form>
+        </div>
 
-        if($today):
-        ?>
+        <!-- SAĞ: PROGRESS -->
+        <div class="card">
+            <h3>Hedef Durumu</h3>
 
-            <p>Kalori: <?= $today['burned_calories'] ?></p>
-            <p>Adım: <?= $today['steps'] ?></p>
+            <p><?= $todaySteps ?> / <?= $goal ?> adım</p>
 
-            <?php if($today['steps'] >= session()->get('step_goal')): ?>
-                <p class="success">🔥 Hedefe ulaştın!</p>
+            <div class="progress-bg">
+                <div class="progress-fill" style="width: <?= $percentage ?>%;">
+                    %<?= $percentage ?>
+                </div>
+            </div>
+
+            <?php if($todaySteps >= $goal): ?>
+                <p class="success">Hedefe ulaştın</p>
             <?php else: ?>
-                <p class="warning">⚠ Hedefe ulaşamadın</p>
+                <p class="warning">Hedefe ulaşmak için devam et</p>
             <?php endif; ?>
-
-        <?php else: ?>
-            <p>Bugün henüz veri girilmedi</p>
-        <?php endif; ?>
+        </div>
 
     </div>
 
-    <br>
-
-    <!-- BUTON -->
-    <a href="/record/list" class="btn">📊 Tüm Kayıtları Gör</a>
-
 </div>
 
-</body>
-</html>
+<?= $this->endSection() ?>

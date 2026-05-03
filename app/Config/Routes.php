@@ -14,7 +14,9 @@ $routes->get('login', 'Auth::login');
 $routes->post('login', 'Auth::loginPost');
 
 $routes->get('logout', 'Auth::logout');
-
 $routes->get('dashboard', 'Dashboard::index');
 $routes->post('record/add', 'Record::add');
 $routes->get('record/list', 'Record::list');
+$routes->get('/', 'Home::index');
+$routes->get('profile', 'Profile::index');
+$routes->post('profile/update', 'Profile::update');
