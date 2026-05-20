@@ -46,3 +46,5 @@ class Profile extends BaseController
         return redirect()->to('/profile')->with('success', 'Profil bilgileri güncellendi.');
     }
 }
+
+

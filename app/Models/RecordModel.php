@@ -18,3 +18,5 @@ class RecordModel extends Model
 
     protected $useTimestamps = false;
 }
+
+

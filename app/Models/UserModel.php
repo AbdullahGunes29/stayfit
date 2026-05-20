@@ -21,3 +21,5 @@ class UserModel extends Model
         'step_goal'
     ];
 }
+
+

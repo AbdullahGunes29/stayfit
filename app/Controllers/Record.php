@@ -8,6 +8,10 @@ class Record extends BaseController
 {
     public function add()
     {
+        if (! session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+        
         $model = new RecordModel();
 
         $data = [
@@ -17,7 +21,19 @@ class Record extends BaseController
             'steps' => $this->request->getPost('steps')
         ];
 
-        $model->insert($data);
+        $existingRecord = $model
+        ->where('user_id', $data['user_id'])
+        ->where('record_date', $data['record_date'])
+        ->first();
+
+        if ($existingRecord) {
+            $model->update($existingRecord['id'], [
+                'burned_calories' => $data['burned_calories'],
+                'steps' => $data['steps']
+            ]);
+        } else {
+            $model->insert($data);
+        }
 
         return redirect()->to('/dashboard');
     }
