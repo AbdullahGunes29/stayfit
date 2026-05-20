@@ -8,7 +8,8 @@
         <h2>Kayıt Ol</h2>
 
         <?php if(session()->getFlashdata('error')): ?>
-            <p class="warning"><?= session()->getFlashdata('error') ?></p>
+            <p class="warning"><?= session()->getFlashdata('error') ?>
+        </p>
         <?php endif; ?>
 
         <form action="/register" method="post">
